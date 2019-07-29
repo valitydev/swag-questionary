@@ -1,0 +1,21 @@
+description: Бенефициарный владелец
+type: object
+properties:
+  ownershipPercentage:
+    type: integer
+    format: int8
+    minimum: 1
+    default: 1
+  russianPrivateEntity:
+    $ref: '#/definitions/RussianPrivateEntity'
+  inn:
+    description: ИНН
+    type: string
+  identityDocument:
+    $ref: '#/definitions/IdentityDocument'
+  migrationCardInfo:
+    $ref: '#/definitions/MigrationCardInfo'
+  residenceApprove:
+    $ref: '#/definitions/ResidenceApprove'
+  pdlCategory:
+    type: boolean

@@ -1,0 +1,21 @@
+description: Сведения о принадлежности физического лица к некоторым категориям граждан
+type: object
+properties:
+  foreignPublicPerson:
+    description: Является иностранным публичным должностным лицом
+    type: boolean
+  foreignRelativePerson:
+    description: Является родственником инностранного публичного должностного лица
+    type: boolean
+  behalfOfForeign:
+    description: Действует от имени иностранного лица
+    type: boolean
+  worldwideOrgPublicPerson:
+    description: Является должностным лицом публичной международной организации; лицом замещающим государственные должности
+    type: boolean
+  hasRepresentative:
+    description: Имеется представитель клиента
+    type: boolean
+  beneficialOwner:
+    description: Бенефициарным владельцем клиента является сам клиент
+    type: boolean

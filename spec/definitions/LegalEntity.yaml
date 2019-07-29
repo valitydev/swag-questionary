@@ -1,0 +1,7 @@
+type: object
+discriminator: legalEntityType
+required:
+  - legalEntityType
+properties:
+  legalEntityType:
+    type: string

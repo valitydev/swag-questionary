@@ -1,0 +1,7 @@
+type: object
+discriminator: individualEntityType
+required:
+  - individualEntityType
+properties:
+  individualEntityType:
+    type: string

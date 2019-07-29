@@ -1,0 +1,9 @@
+description: Деятельность осуществляемая организацией
+type: object
+properties:
+  code:
+    description: код
+    type: string
+  description:
+    description: Описание
+    type: string

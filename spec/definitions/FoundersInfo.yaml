@@ -1,0 +1,12 @@
+type: object
+properties:
+  founders:
+    type: array
+    items:
+      $ref: '#/definitions/Founder'
+  heads:
+    type: array
+    items:
+      $ref: '#/definitions/FounderHead'
+  legalOwner:
+    $ref: '#/definitions/FounderHead'

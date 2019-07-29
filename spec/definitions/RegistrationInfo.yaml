@@ -1,0 +1,8 @@
+description: Сведения о предпренимательской деятельности
+type: object
+discriminator: registrationInfoType
+required:
+  - registrationInfoType
+properties:
+  registrationInfoType:
+    type: string

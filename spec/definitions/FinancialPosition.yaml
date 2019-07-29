@@ -1,0 +1,9 @@
+description: Представлены сведения (документа) о финансовом положении
+type: object
+discriminator: financialPositionType
+required:
+  - financialPositionType
+properties:
+  financialPositionType:
+    description: Представлены сведения (документа) о финансовом положении
+    type: string

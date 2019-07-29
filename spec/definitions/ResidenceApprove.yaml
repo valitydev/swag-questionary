@@ -1,0 +1,16 @@
+description: Сведения о документе подтверждающем право пребывания в РФ
+type: object
+properties:
+  name:
+    description: Наименования документа
+    type: string
+  series:
+    type: string
+  number:
+    type: string
+  beginningDate:
+    description: Дата начала срока действия права пребывания (проживания)
+    type: string
+  expirationDate:
+    description: Дата окончания срока действия права пребывания (проживания)
+    type: string

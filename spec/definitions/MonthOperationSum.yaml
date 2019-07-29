@@ -1,0 +1,6 @@
+description: Планируемая сумма операция в месяц
+type: string
+enum:
+  - LtFiveHundredThousand
+  - BtwFiveHundredThousandToOneMillion
+  - GtOneMillion

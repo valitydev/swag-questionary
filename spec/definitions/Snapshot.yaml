@@ -1,0 +1,6 @@
+type: object
+properties:
+  version:
+    $ref: '#/definitions/Version'
+  questionary:
+    $ref: '#/definitions/Questionary'

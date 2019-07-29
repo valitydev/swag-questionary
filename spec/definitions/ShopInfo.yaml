@@ -1,0 +1,10 @@
+description: Изменение деталей магазина
+type: object
+allOf:
+  - $ref: '#/definitions/ShopDetails'
+  - type: object
+    required:
+      - location
+    properties:
+      location:
+        $ref: '#/definitions/ShopLocation'

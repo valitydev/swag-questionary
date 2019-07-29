@@ -1,0 +1,11 @@
+description: Содержание анкеты
+type: object
+properties:
+  contactInfo:
+    $ref: '#/definitions/ContactInfo'
+  shopInfo:
+    $ref: '#/definitions/ShopInfo'
+  bankAccount:
+    $ref: '#/definitions/BankAccount'
+  contractor:
+    $ref: '#/definitions/Contractor'

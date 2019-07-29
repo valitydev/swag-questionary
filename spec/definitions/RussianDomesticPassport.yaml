@@ -1,0 +1,18 @@
+type: object
+allOf:
+  - $ref: '#/definitions/IdentityDocument'
+  - type: object
+    properties:
+      series:
+        type: string
+      number:
+        type: string
+      issuer:
+        description: Наименование выдавшего паспорт органа
+        type: string
+      issuerCode:
+        description: Код подразделения выдавшего паспорт органа
+        type: string
+      issuedAt:
+        description: Дата выдачи паспорта
+        type: string

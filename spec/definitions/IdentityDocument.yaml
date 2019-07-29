@@ -1,0 +1,9 @@
+description: Сведения о предпренимательской деятельности
+type: object
+discriminator: identityDocumentType
+required:
+  - identityDocumentType
+properties:
+  identityDocumentType:
+    description: Сведения о предпренимательской деятельности
+    type: string

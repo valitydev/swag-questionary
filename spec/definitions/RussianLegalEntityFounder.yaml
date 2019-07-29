@@ -1,0 +1,14 @@
+type: object
+allOf:
+  - $ref: '#/definitions/Founder'
+  - type: object
+    properties:
+      inn:
+        description: ИНН
+        type: string
+      ogrn:
+        description: ОГРН
+        type: string
+      fullName:
+        description: Полное наименование юридического лица
+        type: string

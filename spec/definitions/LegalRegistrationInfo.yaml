@@ -1,0 +1,20 @@
+type: object
+allOf:
+  - $ref: '#/definitions/RegistrationInfo'
+  - type: object
+    properties:
+      ogrn:
+        description: ОГРН
+        type: string
+      registrationDate:
+        description: Дата государственной регистрации
+        type: string
+      registrationPlace:
+        description: Место государственной регистрации
+        type: string
+      registrationAddress:
+        description: Адрес регистрации юридического лица
+        type: string
+      actualAddress:
+        description: Фактический адрес
+        type: string

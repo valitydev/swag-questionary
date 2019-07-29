@@ -1,0 +1,31 @@
+type: object
+allOf:
+  - $ref: '#/definitions/IndividualEntity'
+  - type: object
+    properties:
+      russianPrivateEntity:
+        $ref: '#/definitions/RussianPrivateEntity'
+      inn:
+        type: string
+      identityDocument:
+        $ref: '#/definitions/IdentityDocument'
+      propertyInfo:
+        type: array
+        items:
+          $ref: '#/definitions/PropertyInfo'
+      migrationCardInfo:
+        $ref: '#/definitions/MigrationCardInfo'
+      residenceApprove:
+        $ref: '#/definitions/ResidenceApprove'
+      registrationInfo:
+        $ref: '#/definitions/RegistrationInfo'
+      liceneInfo:
+        $ref: '#/definitions/LicenseInfo'
+      individualPersonCategories:
+        $ref: '#/definitions/IndividualPersonCategories'
+      principalActivity:
+        $ref: '#/definitions/Activity'
+      additionalInfo:
+        $ref: '#/definitions/AdditionalInfo'
+      residencyInfo:
+        $ref: '#/definitions/ResidencyInfo'

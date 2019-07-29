@@ -1,0 +1,16 @@
+description: Сведения о лицензии на право осуществления деятельности
+type: object
+properties:
+  officialNum:
+    type: string
+  issuerName:
+    type: string
+  issueDate:
+    type: string
+  effectiveDate:
+    type: string
+  expirationDate:
+    type: string
+  licensedActivity:
+    description: Описание вида лицензируемой деятельности
+    type: string

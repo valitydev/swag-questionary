@@ -1,0 +1,13 @@
+type: object
+allOf:
+  - $ref: '#/definitions/Founder'
+  - type: object
+    required:
+      - fio
+      - inn
+    properties:
+      inn:
+        description: id владельца анкеты
+        type: string
+      fio:
+        $ref: '#/definitions/PersonAnthroponym'

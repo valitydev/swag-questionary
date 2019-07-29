@@ -1,0 +1,12 @@
+description: Сведения о миграционной карте
+type: object
+properties:
+  cardNumber:
+    description: Является ли налоговым резидентом США или иного иностранного государства
+    type: string
+  beginningDate:
+    description: Дата начала срока пребывания
+    type: string
+  expirationDate:
+    description: Дата окончания срока пребывания
+    type: string

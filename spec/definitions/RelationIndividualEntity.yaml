@@ -1,0 +1,6 @@
+description: В отношении индивидуального предпринимателя
+type: string
+enum:
+  - InsolvencyProceedings
+  - BankruptJudicialDecision
+  - LiquidationProcess

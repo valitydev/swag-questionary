@@ -1,0 +1,5 @@
+description: Деловая репутация
+type: string
+enum:
+  - ProvideReviews
+  - NoReviews

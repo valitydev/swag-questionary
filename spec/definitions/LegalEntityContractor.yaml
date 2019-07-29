@@ -1,0 +1,7 @@
+type: object
+allOf:
+  - $ref: '#/definitions/Contractor'
+  - type: object
+    properties:
+      legalEntity:
+        $ref: '#/definitions/LegalEntity'

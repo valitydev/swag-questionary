@@ -1,0 +1,16 @@
+description: Сведения о единоличном исполнительном органе юридического лица
+type: object
+properties:
+  russianPrivateEntity:
+    $ref: '#/definitions/RussianPrivateEntity'
+  inn:
+    description: ИНН
+    type: string
+  identityDocument:
+    $ref: '#/definitions/IdentityDocument'
+  migrationCardInfo:
+    $ref: '#/definitions/MigrationCardInfo'
+  residenceApprove:
+    $ref: '#/definitions/ResidenceApprove'
+  pdlCategory:
+    type: boolean

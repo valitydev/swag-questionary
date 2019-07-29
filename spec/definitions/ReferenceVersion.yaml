@@ -1,0 +1,9 @@
+type: object
+allOf:
+  - $ref: '#/definitions/Reference'
+  - type: object
+    required:
+      - version
+    properties:
+      version:
+        $ref: '#/definitions/Version'

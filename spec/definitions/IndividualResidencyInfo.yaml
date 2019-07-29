@@ -1,0 +1,9 @@
+type: object
+allOf:
+  - $ref: '#/definitions/ResidencyInfo'
+  - type: object
+    properties:
+      taxResident:
+        description: Является ли налоговым резидентом США или иного иностранного государства
+        type: boolean
+

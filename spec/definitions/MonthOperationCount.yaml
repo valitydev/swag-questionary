@@ -1,0 +1,6 @@
+description: Планируемое кол-во операций в месяц
+type: string
+enum:
+  - LtTen
+  - BtwTenToFifty
+  - GtFifty

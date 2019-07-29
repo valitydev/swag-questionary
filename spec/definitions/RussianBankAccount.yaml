@@ -1,0 +1,14 @@
+description: Банковский счёт
+type: object
+allOf:
+  - $ref: '#/definitions/BankAccount'
+  - type: object
+    properties:
+      account:
+        type: string
+      bankName:
+        type: string
+      bankPostAccount:
+        type: string
+      bankBik:
+        type: string
