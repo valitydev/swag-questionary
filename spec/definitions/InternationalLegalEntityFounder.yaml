@@ -1,0 +1,10 @@
+type: object
+allOf:
+  - $ref: '#/definitions/Founder'
+  - type: object
+    properties:
+      country:
+        type: string
+      fullName:
+        description: Полное наименование юридического лица
+        type: string

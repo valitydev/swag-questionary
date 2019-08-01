@@ -12,3 +12,5 @@ properties:
     type: string
   data:
     $ref: '#/definitions/QuestionaryData'
+  version:
+    $ref: '#/definitions/Version'

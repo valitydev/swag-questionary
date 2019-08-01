@@ -39,9 +39,6 @@ post:
             description: Человекочитаемое описание ошибки
             type: string
             example: Invalid questionary
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
-
 get:
   operationId: getQuestionary
   parameters:
@@ -49,11 +46,11 @@ get:
       description: id анкеты
       in: path
       required: true
-      schema:
-        - type: integer
+      type: string
     - name: version
       description: номер версии
       in: query
+      type: string
   responses:
     '201':
       description: Анкета создана
@@ -83,5 +80,3 @@ get:
             description: Человекочитаемое описание ошибки
             type: string
             example: Invalid questionary
-    '409':
-      $ref: '#/responses/ExternalIDConflict'

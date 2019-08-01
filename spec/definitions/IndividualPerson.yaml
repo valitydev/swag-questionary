@@ -2,9 +2,6 @@ type: object
 allOf:
   - $ref: '#/definitions/Founder'
   - type: object
-    required:
-      - fio
-      - inn
     properties:
       inn:
         description: id владельца анкеты
