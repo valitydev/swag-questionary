@@ -1,0 +1,985 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: RBKmoney Questionary Resource API
+  description: |
+
+    RBKmoney Questionary Resource API для работы с анкетами.
+  termsOfService: 'http://rbk.money/'
+  contact:
+    name: RBKmoney support team
+    email: support@rbk.money
+    url: 'https://rbk.money'
+host: api.rbk.money
+basePath: /questionary/v0
+schemes:
+  - https
+consumes:
+  - application/json; charset=utf-8
+produces:
+  - application/json; charset=utf-8
+securityDefinitions:
+  bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: |
+      Для аутентификации вызовов мы используем [JWT](https://jwt.io). Cоответствующий ключ передается в заголовке.
+      ```shell
+       Authorization: Bearer {TOKENIZATION|PRIVATE_JWT}
+      ```
+security:
+  - bearer: []
+responses:
+  QuestionaryNotFound:
+    description: Заданный ресурс не найден
+    schema:
+      $ref: '#/definitions/GeneralError'
+  Unauthorized:
+    description: Ошибка авторизации
+  ExternalIDConflict:
+    description: Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса
+    schema:
+      $ref: '#/definitions/ExternalIDConflictError'
+parameters:
+  requestID:
+    name: X-Request-ID
+    in: header
+    description: Уникальный идентификатор запроса к системе
+    required: true
+    type: string
+    maxLength: 32
+    minLength: 1
+tags:
+  - name: Questionary
+    x-displayName: Управление анкетами
+    description: ''
+paths:
+  /questionary:
+    post:
+      description: Сервис для работы с анкетами
+      tags:
+        - Questionary
+      operationId: saveQuestionary
+      parameters:
+        - name: questionaryParams
+          description: Параметры создаваемого запроса
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/QuestionaryParams'
+      responses:
+        '201':
+          description: Анкета создана
+          schema:
+            $ref: '#/definitions/Version'
+        '400':
+          description: Ошибочные данные
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Код ошибки](#tag/Error-Codes)
+                type: string
+                enum:
+                  - questionaryNotValidException
+                  - questionaryVersionConflict
+                  - questionaryNotFound
+              message:
+                description: Человекочитаемое описание ошибки
+                type: string
+                example: Invalid questionary
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/QuestionaryNotFound'
+  '/questionary/{questionaryId}':
+    get:
+      operationId: getQuestionary
+      parameters:
+        - name: questionaryId
+          description: id анкеты
+          in: path
+          required: true
+          type: string
+        - name: version
+          description: номер версии
+          in: query
+          type: string
+      responses:
+        '201':
+          description: Анкета создана
+          schema:
+            $ref: '#/definitions/Snapshot'
+        '400':
+          description: Ошибочные данные
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Код ошибки](#tag/Error-Codes)
+                type: string
+                enum:
+                  - questionaryNotValidException
+                  - questionaryVersionConflict
+                  - questionaryNotFound
+              message:
+                description: Человекочитаемое описание ошибки
+                type: string
+                example: Invalid questionary
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/QuestionaryNotFound'
+definitions:
+  Activity:
+    description: Деятельность осуществляемая организацией
+    type: object
+    properties:
+      code:
+        description: код
+        type: string
+      description:
+        description: Описание
+        type: string
+  AdditionalInfo:
+    description: |
+      Сведения о целях установления и предполагаемом характере отношения с НКО,
+      сведения о целях финансово-хозяйственной деятельности индвидидуального предпринимателя,
+      деловая репутация
+    type: object
+    properties:
+      staffCount:
+        description: Штатная численность
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+      hasAccountant:
+        description: Наличие в штате главного бухгалтера
+        type: boolean
+      accounting:
+        description: Бух.учет ведется самим предпринимателем (в случае отстутсвия в штате главного бухгалтера)
+        type: string
+      accountingOrg:
+        description: 'Сведения об организации, ведущей бухгалтерский учет (наименование, договор, иной документ)'
+        type: string
+      nkoRelationTarget:
+        description: Цели установления деловых отношения с НКО
+        type: string
+      relationshipWithNko:
+        description: Предполагаемый характер деловых отношений с НКО
+        type: string
+      montOperationCount:
+        $ref: '#/definitions/MonthOperationCount'
+      monthOperationSum:
+        $ref: '#/definitions/MonthOperationSum'
+      financialPosition:
+        type: array
+        items:
+          $ref: '#/definitions/FinancialPosition'
+      businessInfo:
+        type: array
+        items:
+          $ref: '#/definitions/BusinessInfo'
+      storageFacilities:
+        description: Наличие складских помещений
+        type: boolean
+      mainCounterparties:
+        description: Основные контагенты
+        type: string
+      relationIndividualEntity:
+        $ref: '#/definitions/RelationIndividualEntity'
+      benefitThirdParties:
+        description: Действует ли к выгоде третьх лиц
+        type: boolean
+      businessReputation:
+        $ref: '#/definitions/BusinessReputation'
+      bankAccount:
+        $ref: '#/definitions/BankAccount'
+  AnnualFinancialStatements:
+    type: object
+    allOf:
+      - $ref: '#/definitions/FinancialPosition'
+  AnnualTaxReturnWithMark:
+    type: object
+    allOf:
+      - $ref: '#/definitions/FinancialPosition'
+  AnnualTaxReturnWithoutMark:
+    type: object
+    allOf:
+      - $ref: '#/definitions/FinancialPosition'
+  AnnualTaxReturnWithoutMarkPaper:
+    type: object
+    allOf:
+      - $ref: '#/definitions/FinancialPosition'
+  AnotherBusiness:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+      - type: object
+        properties:
+          description:
+            type: string
+  BankAccount:
+    type: object
+    discriminator: bankAccountType
+    required:
+      - bankAccountType
+    properties:
+      bankAccountType:
+        type: string
+  BeneficialOwner:
+    description: Бенефициарный владелец
+    type: object
+    properties:
+      ownershipPercentage:
+        type: integer
+        format: int8
+        minimum: 1
+        default: 1
+      russianPrivateEntity:
+        $ref: '#/definitions/RussianPrivateEntity'
+      inn:
+        description: ИНН
+        type: string
+      identityDocument:
+        $ref: '#/definitions/IdentityDocument'
+      migrationCardInfo:
+        $ref: '#/definitions/MigrationCardInfo'
+      residenceApprove:
+        $ref: '#/definitions/ResidenceApprove'
+      pdlCategory:
+        type: boolean
+  BuildingBusiness:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+  BusinessInfo:
+    type: object
+    discriminator: businessInfoType
+    properties:
+      businessInfoType:
+        description: Сведения о предпренимательской деятельности
+        type: string
+    required:
+      - businessInfoType
+  BusinessReputation:
+    description: Деловая репутация
+    type: string
+    enum:
+      - ProvideReviews
+      - NoReviews
+  ContactInfo:
+    description: Контактные данные
+    type: object
+    properties:
+      email:
+        description: Адрес электронной почты
+        type: string
+        format: email
+        maxLength: 100
+      phoneNumber:
+        description: |
+          Номер мобильного телефона с международным префиксом согласно
+          [E.164](https://en.wikipedia.org/wiki/E.164).
+        type: string
+        format: '^\+\d{4,15}$'
+  Contractor:
+    type: object
+    discriminator: contractorType
+    required:
+      - contractorType
+    properties:
+      contractorType:
+        type: string
+  ExternalID:
+    description: |
+      Уникальный в рамках платформы идентификатор сущности для данного участника.
+
+      Используется для обеспечения идемпотентности запроса.
+    type: string
+    maxLength: 40
+    minLength: 1
+  ExternalIDConflictError:
+    type: object
+    required:
+      - externalID
+    properties:
+      externalID:
+        description: 'Переданное значение `externalID`, для которого обнаружен конфликт параметров запроса'
+        type: string
+        maxLength: 40
+        minLength: 1
+      id:
+        description: 'Идентификатор сущности, созданной предыдущим запросом с указанным `externalID`'
+        type: string
+      message:
+        description: Человекочитаемое описание ошибки
+        type: string
+  FinancialPosition:
+    description: Представлены сведения (документа) о финансовом положении
+    type: object
+    discriminator: financialPositionType
+    required:
+      - financialPositionType
+    properties:
+      financialPositionType:
+        description: Представлены сведения (документа) о финансовом положении
+        type: string
+  Founder:
+    type: object
+    discriminator: founderType
+    required:
+      - founderType
+    properties:
+      founderType:
+        type: string
+  FounderHead:
+    type: object
+    properties:
+      individualPerson:
+        $ref: '#/definitions/IndividualPerson'
+      position:
+        type: string
+  FoundersInfo:
+    type: object
+    properties:
+      founders:
+        type: array
+        items:
+          $ref: '#/definitions/Founder'
+      heads:
+        type: array
+        items:
+          $ref: '#/definitions/FounderHead'
+      legalOwner:
+        $ref: '#/definitions/FounderHead'
+  GeneralError:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  Head:
+    description: Маркер вершины истории
+    type: object
+    allOf:
+      - $ref: '#/definitions/Reference'
+  IdentityDocument:
+    description: Сведения о предпренимательской деятельности
+    type: object
+    discriminator: identityDocumentType
+    required:
+      - identityDocumentType
+    properties:
+      identityDocumentType:
+        description: Сведения о предпренимательской деятельности
+        type: string
+  IndividualEntity:
+    type: object
+    discriminator: individualEntityType
+    required:
+      - individualEntityType
+    properties:
+      individualEntityType:
+        type: string
+  IndividualEntityContractor:
+    type: object
+    allOf:
+      - $ref: '#/definitions/Contractor'
+      - type: object
+        properties:
+          individualEntity:
+            $ref: '#/definitions/IndividualEntity'
+  IndividualPerson:
+    type: object
+    allOf:
+      - $ref: '#/definitions/Founder'
+      - type: object
+        properties:
+          inn:
+            description: id владельца анкеты
+            type: string
+          fio:
+            $ref: '#/definitions/PersonAnthroponym'
+  IndividualPersonCategories:
+    description: Сведения о принадлежности физического лица к некоторым категориям граждан
+    type: object
+    properties:
+      foreignPublicPerson:
+        description: Является иностранным публичным должностным лицом
+        type: boolean
+      foreignRelativePerson:
+        description: Является родственником инностранного публичного должностного лица
+        type: boolean
+      behalfOfForeign:
+        description: Действует от имени иностранного лица
+        type: boolean
+      worldwideOrgPublicPerson:
+        description: Является должностным лицом публичной международной организации; лицом замещающим государственные должности
+        type: boolean
+      hasRepresentative:
+        description: Имеется представитель клиента
+        type: boolean
+      beneficialOwner:
+        description: Бенефициарным владельцем клиента является сам клиент
+        type: boolean
+  IndividualPersonFounder:
+    type: object
+    required:
+      - fio
+      - inn
+    properties:
+      inn:
+        description: id владельца анкеты
+        type: string
+      fio:
+        $ref: '#/definitions/PersonAnthroponym'
+  IndividualRegistrationInfo:
+    description: Индивидуальная информация
+    type: object
+    allOf:
+      - $ref: '#/definitions/RegistrationInfo'
+      - type: object
+        properties:
+          ogrnip:
+            description: ОГРНИП
+            type: string
+          registrationData:
+            description: Дата регистрации
+            type: string
+          registrationPlace:
+            description: Место государственной регистрации
+            type: string
+  IndividualResidencyInfo:
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResidencyInfo'
+      - type: object
+        properties:
+          taxResident:
+            description: Является ли налоговым резидентом США или иного иностранного государства
+            type: boolean
+  InternationalLegalEntityFounder:
+    type: object
+    allOf:
+      - $ref: '#/definitions/Founder'
+      - type: object
+        properties:
+          country:
+            type: string
+          fullName:
+            description: Полное наименование юридического лица
+            type: string
+  LegalEntity:
+    type: object
+    discriminator: legalEntityType
+    required:
+      - legalEntityType
+    properties:
+      legalEntityType:
+        type: string
+  LegalEntityContractor:
+    type: object
+    allOf:
+      - $ref: '#/definitions/Contractor'
+      - type: object
+        properties:
+          legalEntity:
+            $ref: '#/definitions/LegalEntity'
+  LegalOwnerInfo:
+    description: Сведения о единоличном исполнительном органе юридического лица
+    type: object
+    properties:
+      russianPrivateEntity:
+        $ref: '#/definitions/RussianPrivateEntity'
+      inn:
+        description: ИНН
+        type: string
+      identityDocument:
+        $ref: '#/definitions/IdentityDocument'
+      migrationCardInfo:
+        $ref: '#/definitions/MigrationCardInfo'
+      residenceApprove:
+        $ref: '#/definitions/ResidenceApprove'
+      pdlCategory:
+        type: boolean
+  LegalRegistrationInfo:
+    type: object
+    allOf:
+      - $ref: '#/definitions/RegistrationInfo'
+      - type: object
+        properties:
+          ogrn:
+            description: ОГРН
+            type: string
+          registrationDate:
+            description: Дата государственной регистрации
+            type: string
+          registrationPlace:
+            description: Место государственной регистрации
+            type: string
+          registrationAddress:
+            description: Адрес регистрации юридического лица
+            type: string
+          actualAddress:
+            description: Фактический адрес
+            type: string
+  LegalResidencyInfo:
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResidencyInfo'
+      - type: object
+        properties:
+          taxResident:
+            description: Является ли налоговым резидентом США или иного иностранного государства
+            type: boolean
+          ownerResident:
+            description: Является ли Бенефициарный владалей резидентом иностранного государства
+            type: boolean
+          fatca:
+            description: Является ли организация Финансовым Инсистутом в соответсвии с FATCA и 173-ФЗ
+            type: boolean
+  LetterOfGuarantee:
+    type: object
+    allOf:
+      - $ref: '#/definitions/FinancialPosition'
+  LicenseInfo:
+    description: Сведения о лицензии на право осуществления деятельности
+    type: object
+    properties:
+      officialNum:
+        type: string
+      issuerName:
+        type: string
+      issueDate:
+        type: string
+      effectiveDate:
+        type: string
+      expirationDate:
+        type: string
+      licensedActivity:
+        description: Описание вида лицензируемой деятельности
+        type: string
+  MediationInPropertyBusiness:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+  MigrationCardInfo:
+    description: Сведения о миграционной карте
+    type: object
+    properties:
+      cardNumber:
+        description: Является ли налоговым резидентом США или иного иностранного государства
+        type: string
+      beginningDate:
+        description: Дата начала срока пребывания
+        type: string
+      expirationDate:
+        description: Дата окончания срока пребывания
+        type: string
+  MonthOperationCount:
+    description: Планируемое кол-во операций в месяц
+    type: string
+    enum:
+      - LtTen
+      - BtwTenToFifty
+      - GtFifty
+  MonthOperationSum:
+    description: Планируемая сумма операция в месяц
+    type: string
+    enum:
+      - LtFiveHundredThousand
+      - BtwFiveHundredThousandToOneMillion
+      - GtOneMillion
+  PersonAnthroponym:
+    description: ФИО
+    type: object
+    properties:
+      firstName:
+        description: Имя
+        type: string
+      secondName:
+        description: Фамилия
+        type: string
+      middleName:
+        description: Отчество
+        type: string
+  PreciousMetalsAndStonesTrade:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+  ProductionBusiness:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+  PropertyInfo:
+    type: string
+  QuarterlyTaxReturnWithMark:
+    type: object
+    allOf:
+      - $ref: '#/definitions/FinancialPosition'
+  QuarterlyTaxReturnWithoutMark:
+    type: object
+    allOf:
+      - $ref: '#/definitions/FinancialPosition'
+  Questionary:
+    type: object
+    required:
+      - id
+      - ownerId
+      - data
+    properties:
+      id:
+        description: id анкеты
+        type: string
+      ownerId:
+        description: id владельца анкеты
+        type: string
+      data:
+        $ref: '#/definitions/QuestionaryData'
+  QuestionaryData:
+    description: Содержание анкеты
+    type: object
+    properties:
+      contactInfo:
+        $ref: '#/definitions/ContactInfo'
+      shopInfo:
+        $ref: '#/definitions/ShopInfo'
+      bankAccount:
+        $ref: '#/definitions/BankAccount'
+      contractor:
+        $ref: '#/definitions/Contractor'
+  QuestionaryGetParams:
+    type: object
+    required:
+      - questionaryId
+      - reference
+    properties:
+      questionaryId:
+        description: id анкеты
+        type: string
+      reference:
+        $ref: '#/definitions/Reference'
+  QuestionaryParams:
+    type: object
+    required:
+      - id
+      - ownerId
+      - data
+    properties:
+      id:
+        description: id анкеты
+        type: string
+      ownerId:
+        description: id владельца анкеты
+        type: string
+      data:
+        $ref: '#/definitions/QuestionaryData'
+      version:
+        $ref: '#/definitions/Version'
+  Reference:
+    type: object
+    discriminator: referenceType
+    properties:
+      referenceType:
+        type: string
+    required:
+      - referenceType
+  ReferenceVersion:
+    type: object
+    allOf:
+      - $ref: '#/definitions/Reference'
+      - type: object
+        required:
+          - version
+        properties:
+          version:
+            $ref: '#/definitions/Version'
+  RegistrationInfo:
+    description: Сведения о предпренимательской деятельности
+    type: object
+    discriminator: registrationInfoType
+    required:
+      - registrationInfoType
+    properties:
+      registrationInfoType:
+        type: string
+  RelationIndividualEntity:
+    description: В отношении индивидуального предпринимателя
+    type: string
+    enum:
+      - InsolvencyProceedings
+      - BankruptJudicialDecision
+      - LiquidationProcess
+  ResidenceApprove:
+    description: Сведения о документе подтверждающем право пребывания в РФ
+    type: object
+    properties:
+      name:
+        description: Наименования документа
+        type: string
+      series:
+        type: string
+      number:
+        type: string
+      beginningDate:
+        description: Дата начала срока действия права пребывания (проживания)
+        type: string
+      expirationDate:
+        description: Дата окончания срока действия права пребывания (проживания)
+        type: string
+  ResidencyInfo:
+    description: Информация об иностранном налоговом резиденстве
+    type: object
+    discriminator: residencyInfoType
+    required:
+      - residencyInfoType
+    properties:
+      residencyInfoType:
+        type: string
+  RetailTradeBusiness:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+  RussianBankAccount:
+    description: Банковский счёт
+    type: object
+    allOf:
+      - $ref: '#/definitions/BankAccount'
+      - type: object
+        properties:
+          account:
+            type: string
+          bankName:
+            type: string
+          bankPostAccount:
+            type: string
+          bankBik:
+            type: string
+  RussianDomesticPassport:
+    type: object
+    allOf:
+      - $ref: '#/definitions/IdentityDocument'
+      - type: object
+        properties:
+          series:
+            type: string
+          number:
+            type: string
+          issuer:
+            description: Наименование выдавшего паспорт органа
+            type: string
+          issuerCode:
+            description: Код подразделения выдавшего паспорт органа
+            type: string
+          issuedAt:
+            description: Дата выдачи паспорта
+            type: string
+  RussianIndividualEntity:
+    type: object
+    allOf:
+      - $ref: '#/definitions/IndividualEntity'
+      - type: object
+        properties:
+          russianPrivateEntity:
+            $ref: '#/definitions/RussianPrivateEntity'
+          inn:
+            type: string
+          identityDocument:
+            $ref: '#/definitions/IdentityDocument'
+          propertyInfo:
+            type: array
+            items:
+              $ref: '#/definitions/PropertyInfo'
+          migrationCardInfo:
+            $ref: '#/definitions/MigrationCardInfo'
+          residenceApprove:
+            $ref: '#/definitions/ResidenceApprove'
+          registrationInfo:
+            $ref: '#/definitions/RegistrationInfo'
+          liceneInfo:
+            $ref: '#/definitions/LicenseInfo'
+          individualPersonCategories:
+            $ref: '#/definitions/IndividualPersonCategories'
+          principalActivity:
+            $ref: '#/definitions/Activity'
+          additionalInfo:
+            $ref: '#/definitions/AdditionalInfo'
+          residencyInfo:
+            $ref: '#/definitions/ResidencyInfo'
+  RussianLegalEntity:
+    description: 'Анкета юридического лица, резидент РФ'
+    type: object
+    allOf:
+      - $ref: '#/definitions/LegalEntity'
+      - type: object
+        properties:
+          name:
+            description: 'Наименование, фирменное наименование на русском языке'
+            type: string
+          foreignName:
+            description: 'Наименование, фирменное наименование на иностранном языке'
+            type: string
+          legalForm:
+            description: Организационно-правовая форма
+            type: string
+          inn:
+            description: ИНН
+            type: string
+          registrationInfo:
+            $ref: '#/definitions/RegistrationInfo'
+          additionalSpace:
+            description: Наличие дополнительных площадей
+            type: string
+          propertyInfo:
+            type: array
+            items:
+              $ref: '#/definitions/PropertyInfo'
+          okatoCode:
+            description: код в соответствии с ОКАТО
+            type: string
+          okpoCode:
+            description: код в соответствии с ОКПО
+            type: string
+          postalAddress:
+            type: string
+          foundersInfo:
+            $ref: '#/definitions/FoundersInfo'
+          licenseInfo:
+            $ref: '#/definitions/LicenseInfo'
+          principalActivity:
+            $ref: '#/definitions/Activity'
+          legalOwnerInfo:
+            $ref: '#/definitions/LegalOwnerInfo'
+          beneficialOwner:
+            type: array
+            items:
+              $ref: '#/definitions/BeneficialOwner'
+          additionalInfo:
+            $ref: '#/definitions/AdditionalInfo'
+          residencyInfo:
+            $ref: '#/definitions/ResidencyInfo'
+  RussianLegalEntityFounder:
+    type: object
+    allOf:
+      - $ref: '#/definitions/Founder'
+      - type: object
+        properties:
+          inn:
+            description: ИНН
+            type: string
+          ogrn:
+            description: ОГРН
+            type: string
+          fullName:
+            description: Полное наименование юридического лица
+            type: string
+  RussianPrivateEntity:
+    type: object
+    description: Частное лицо
+    properties:
+      personAnthroponym:
+        $ref: '#/definitions/PersonAnthroponym'
+      birthDate:
+        description: Дата рождения
+        type: string
+      birthPlace:
+        description: Место рождения
+        type: string
+      citizenship:
+        description: Гражданство
+        type: string
+      residenceAddress:
+        description: Адрес места жительства
+        type: string
+      actualAddress:
+        description: Фактический адрес
+        type: string
+      contactInfo:
+        $ref: '#/definitions/ContactInfo'
+  SecuritiesTradingBusiness:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+  ShopDetails:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        description: Название магазина
+        type: string
+        maxLength: 100
+      description:
+        description: Краткое описание
+        type: string
+        maxLength: 1000
+  ShopInfo:
+    description: Изменение деталей магазина
+    type: object
+    properties:
+      location:
+        $ref: '#/definitions/ShopLocation'
+      details:
+        $ref: '#/definitions/ShopDetails'
+  ShopLocation:
+    description: 'Местоположение магазина, по которому можно его найти'
+    type: object
+    discriminator: locationType
+    required:
+      - locationType
+    properties:
+      locationType:
+        description: Тип местоположения
+        type: string
+  ShopLocationUrl:
+    description: Местоположение в Интернете
+    type: object
+    allOf:
+      - $ref: '#/definitions/ShopLocation'
+      - type: object
+        required:
+          - url
+        properties:
+          url:
+            description: URL сайта магазина
+            type: string
+            format: uri
+            maxLength: 1000
+  Snapshot:
+    type: object
+    properties:
+      version:
+        $ref: '#/definitions/Version'
+      questionary:
+        $ref: '#/definitions/Questionary'
+  StatementOfDuty:
+    type: object
+    allOf:
+      - $ref: '#/definitions/FinancialPosition'
+  TransportBusiness:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+  Version:
+    description: Номер версии
+    type: string
+  WeaponsTrade:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
+  WholesaleTradeBusiness:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BusinessInfo'
