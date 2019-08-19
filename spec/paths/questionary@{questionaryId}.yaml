@@ -11,8 +11,8 @@ get:
       in: query
       type: string
   responses:
-    '201':
-      description: Анкета создана
+    '200':
+      description: Анкета
       schema:
         $ref: '#/definitions/Snapshot'
     '400':
