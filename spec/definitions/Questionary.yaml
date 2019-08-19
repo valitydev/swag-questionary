@@ -7,7 +7,7 @@ properties:
   id:
     description: id анкеты
     type: string
-  ownerID:
+  ownerId:
     description: id владельца анкеты
     type: string
   data:

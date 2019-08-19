@@ -1,20 +1,20 @@
-post:
-  description: Сервис для работы с анкетами
-  tags:
-    - Questionary
-  operationId: saveQuestionary
+get:
+  operationId: getQuestionary
   parameters:
-    - name: questionaryParams
-      description: Параметры создаваемого запроса
-      in: body
+    - name: questionaryId
+      description: id анкеты
+      in: path
       required: true
-      schema:
-        $ref: '#/definitions/QuestionaryParams'
+      type: string
+    - name: version
+      description: номер версии
+      in: query
+      type: string
   responses:
     '201':
       description: Анкета создана
       schema:
-        $ref: '#/definitions/Version'
+        $ref: '#/definitions/Snapshot'
     '400':
       description: Ошибочные данные
       schema:
