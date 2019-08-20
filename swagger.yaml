@@ -237,6 +237,8 @@ definitions:
     properties:
       bankAccountType:
         type: string
+        enum:
+          - RussianBankAccount
   BeneficialOwner:
     description: Бенефициарный владелец
     type: object
@@ -266,12 +268,21 @@ definitions:
   BusinessInfo:
     type: object
     discriminator: businessInfoType
-    properties:
-      businessInfoType:
-        description: Сведения о предпренимательской деятельности
-        type: string
     required:
       - businessInfoType
+    properties:
+      businessInfoType:
+        description: Сведения о предпринимательской деятельности
+        type: string
+        enum:
+          - WholesaleTradeBusiness
+          - RetailTradeBusiness
+          - ProductionBusiness
+          - BuildingBusiness
+          - TransportBusiness
+          - SecuritiesTradingBusiness
+          - MediationInPropertyBusiness
+          - AnotherBusiness
   BusinessReputation:
     description: Деловая репутация
     type: string
@@ -301,6 +312,9 @@ definitions:
     properties:
       contractorType:
         type: string
+        enum:
+          - IndividualEntity
+          - LegalEntity
   ExternalID:
     description: |
       Уникальный в рамках платформы идентификатор сущности для данного участника.
@@ -335,6 +349,15 @@ definitions:
       financialPositionType:
         description: Представлены сведения (документа) о финансовом положении
         type: string
+        enum:
+          - AnnualFinancialStatements
+          - AnnualTaxReturnWithMark
+          - QuarterlyTaxReturnWithMark
+          - AnnualTaxReturnWithoutMark
+          - QuarterlyTaxReturnWithoutMark
+          - AnnualTaxReturnWithoutMarkPaper
+          - StatementOfDuty
+          - LetterOfGuarantee
   Founder:
     type: object
     discriminator: founderType
@@ -343,6 +366,10 @@ definitions:
     properties:
       founderType:
         type: string
+        enum:
+          - IndividualPerson
+          - RussianLegalEntityFounder
+          - InternationalLegalEntityFounder
   FounderHead:
     type: object
     properties:
@@ -376,15 +403,17 @@ definitions:
     allOf:
       - $ref: '#/definitions/Reference'
   IdentityDocument:
-    description: Сведения о предпренимательской деятельности
+    description: Сведения о предпринимательской деятельности
     type: object
     discriminator: identityDocumentType
     required:
       - identityDocumentType
     properties:
       identityDocumentType:
-        description: Сведения о предпренимательской деятельности
+        description: Сведения о предпринимательской деятельности
         type: string
+        enum:
+          - RussianDomesticPassport
   IndividualEntity:
     type: object
     discriminator: individualEntityType
@@ -393,6 +422,8 @@ definitions:
     properties:
       individualEntityType:
         type: string
+        enum:
+          - RussianIndividualEntity
   IndividualEntityContractor:
     type: object
     allOf:
@@ -489,6 +520,8 @@ definitions:
     properties:
       legalEntityType:
         type: string
+        enum:
+          - RussianLegalEntity
   LegalEntityContractor:
     type: object
     allOf:
@@ -691,11 +724,14 @@ definitions:
   Reference:
     type: object
     discriminator: referenceType
+    required:
+      - referenceType
     properties:
       referenceType:
         type: string
-    required:
-      - referenceType
+        enum:
+          - Version
+          - Head
   ReferenceVersion:
     type: object
     allOf:
@@ -707,7 +743,7 @@ definitions:
           version:
             $ref: '#/definitions/Version'
   RegistrationInfo:
-    description: Сведения о предпренимательской деятельности
+    description: Сведения о предпринимательской деятельности
     type: object
     discriminator: registrationInfoType
     required:
@@ -715,6 +751,9 @@ definitions:
     properties:
       registrationInfoType:
         type: string
+        enum:
+          - IndividualRegistrationInfo
+          - LegalRegistrationInfo
   RelationIndividualEntity:
     description: В отношении индивидуального предпринимателя
     type: string
@@ -740,7 +779,7 @@ definitions:
         description: Дата окончания срока действия права пребывания (проживания)
         type: string
   ResidencyInfo:
-    description: Информация об иностранном налоговом резиденстве
+    description: Информация об иностранном налоговом резидентстве
     type: object
     discriminator: residencyInfoType
     required:
@@ -748,6 +787,9 @@ definitions:
     properties:
       residencyInfoType:
         type: string
+        enum:
+          - IndividualResidencyInfo
+          - LegalResidencyInfo
   RetailTradeBusiness:
     type: object
     allOf:
@@ -943,6 +985,8 @@ definitions:
       locationType:
         description: Тип местоположения
         type: string
+        enum:
+          - URL
   ShopLocationUrl:
     description: Местоположение в Интернете
     type: object

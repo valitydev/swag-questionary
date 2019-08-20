@@ -335,7 +335,10 @@
       ],
       "properties": {
         "bankAccountType": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "RussianBankAccount"
+          ]
         }
       }
     },
@@ -381,15 +384,25 @@
     "BusinessInfo": {
       "type": "object",
       "discriminator": "businessInfoType",
-      "properties": {
-        "businessInfoType": {
-          "description": "Сведения о предпренимательской деятельности",
-          "type": "string"
-        }
-      },
       "required": [
         "businessInfoType"
-      ]
+      ],
+      "properties": {
+        "businessInfoType": {
+          "description": "Сведения о предпринимательской деятельности",
+          "type": "string",
+          "enum": [
+            "WholesaleTradeBusiness",
+            "RetailTradeBusiness",
+            "ProductionBusiness",
+            "BuildingBusiness",
+            "TransportBusiness",
+            "SecuritiesTradingBusiness",
+            "MediationInPropertyBusiness",
+            "AnotherBusiness"
+          ]
+        }
+      }
     },
     "BusinessReputation": {
       "description": "Деловая репутация",
@@ -424,7 +437,11 @@
       ],
       "properties": {
         "contractorType": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "IndividualEntity",
+            "LegalEntity"
+          ]
         }
       }
     },
@@ -466,7 +483,17 @@
       "properties": {
         "financialPositionType": {
           "description": "Представлены сведения (документа) о финансовом положении",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "AnnualFinancialStatements",
+            "AnnualTaxReturnWithMark",
+            "QuarterlyTaxReturnWithMark",
+            "AnnualTaxReturnWithoutMark",
+            "QuarterlyTaxReturnWithoutMark",
+            "AnnualTaxReturnWithoutMarkPaper",
+            "StatementOfDuty",
+            "LetterOfGuarantee"
+          ]
         }
       }
     },
@@ -478,7 +505,12 @@
       ],
       "properties": {
         "founderType": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "IndividualPerson",
+            "RussianLegalEntityFounder",
+            "InternationalLegalEntityFounder"
+          ]
         }
       }
     },
@@ -534,7 +566,7 @@
       ]
     },
     "IdentityDocument": {
-      "description": "Сведения о предпренимательской деятельности",
+      "description": "Сведения о предпринимательской деятельности",
       "type": "object",
       "discriminator": "identityDocumentType",
       "required": [
@@ -542,8 +574,11 @@
       ],
       "properties": {
         "identityDocumentType": {
-          "description": "Сведения о предпренимательской деятельности",
-          "type": "string"
+          "description": "Сведения о предпринимательской деятельности",
+          "type": "string",
+          "enum": [
+            "RussianDomesticPassport"
+          ]
         }
       }
     },
@@ -555,7 +590,10 @@
       ],
       "properties": {
         "individualEntityType": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "RussianIndividualEntity"
+          ]
         }
       }
     },
@@ -712,7 +750,10 @@
       ],
       "properties": {
         "legalEntityType": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "RussianLegalEntity"
+          ]
         }
       }
     },
@@ -1027,14 +1068,18 @@
     "Reference": {
       "type": "object",
       "discriminator": "referenceType",
-      "properties": {
-        "referenceType": {
-          "type": "string"
-        }
-      },
       "required": [
         "referenceType"
-      ]
+      ],
+      "properties": {
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "Version",
+            "Head"
+          ]
+        }
+      }
     },
     "ReferenceVersion": {
       "type": "object",
@@ -1056,7 +1101,7 @@
       ]
     },
     "RegistrationInfo": {
-      "description": "Сведения о предпренимательской деятельности",
+      "description": "Сведения о предпринимательской деятельности",
       "type": "object",
       "discriminator": "registrationInfoType",
       "required": [
@@ -1064,7 +1109,11 @@
       ],
       "properties": {
         "registrationInfoType": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "IndividualRegistrationInfo",
+            "LegalRegistrationInfo"
+          ]
         }
       }
     },
@@ -1102,7 +1151,7 @@
       }
     },
     "ResidencyInfo": {
-      "description": "Информация об иностранном налоговом резиденстве",
+      "description": "Информация об иностранном налоговом резидентстве",
       "type": "object",
       "discriminator": "residencyInfoType",
       "required": [
@@ -1110,7 +1159,11 @@
       ],
       "properties": {
         "residencyInfoType": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "IndividualResidencyInfo",
+            "LegalResidencyInfo"
+          ]
         }
       }
     },
@@ -1414,7 +1467,10 @@
       "properties": {
         "locationType": {
           "description": "Тип местоположения",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "URL"
+          ]
         }
       }
     },
