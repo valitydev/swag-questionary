@@ -5,3 +5,5 @@ required:
 properties:
   individualEntityType:
     type: string
+    enum:
+      - RussianIndividualEntity

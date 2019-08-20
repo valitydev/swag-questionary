@@ -1,4 +1,4 @@
-description: Информация об иностранном налоговом резиденстве
+description: Информация об иностранном налоговом резидентстве
 type: object
 discriminator: residencyInfoType
 required:
@@ -6,3 +6,6 @@ required:
 properties:
   residencyInfoType:
     type: string
+    enum:
+      - IndividualResidencyInfo
+      - LegalResidencyInfo

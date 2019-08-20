@@ -5,3 +5,5 @@ required:
 properties:
   bankAccountType:
     type: string
+    enum:
+      - RussianBankAccount

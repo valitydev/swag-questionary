@@ -5,3 +5,6 @@ required:
 properties:
   contractorType:
     type: string
+    enum:
+      - IndividualEntity
+      - LegalEntity

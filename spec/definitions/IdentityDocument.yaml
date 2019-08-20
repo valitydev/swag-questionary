@@ -1,9 +1,11 @@
-description: Сведения о предпренимательской деятельности
+description: Сведения о предпринимательской деятельности
 type: object
 discriminator: identityDocumentType
 required:
   - identityDocumentType
 properties:
   identityDocumentType:
-    description: Сведения о предпренимательской деятельности
+    description: Сведения о предпринимательской деятельности
     type: string
+    enum:
+      - RussianDomesticPassport

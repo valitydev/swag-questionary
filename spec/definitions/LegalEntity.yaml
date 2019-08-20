@@ -5,3 +5,5 @@ required:
 properties:
   legalEntityType:
     type: string
+    enum:
+      - RussianLegalEntity

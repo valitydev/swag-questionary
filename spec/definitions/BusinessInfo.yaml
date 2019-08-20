@@ -1,8 +1,17 @@
 type: object
 discriminator: businessInfoType
-properties:
-  businessInfoType:
-    description: Сведения о предпренимательской деятельности
-    type: string
 required:
   - businessInfoType
+properties:
+  businessInfoType:
+    description: Сведения о предпринимательской деятельности
+    type: string
+    enum:
+      - WholesaleTradeBusiness
+      - RetailTradeBusiness
+      - ProductionBusiness
+      - BuildingBusiness
+      - TransportBusiness
+      - SecuritiesTradingBusiness
+      - MediationInPropertyBusiness
+      - AnotherBusiness

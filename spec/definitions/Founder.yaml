@@ -5,3 +5,7 @@ required:
 properties:
   founderType:
     type: string
+    enum:
+      - IndividualPerson
+      - RussianLegalEntityFounder
+      - InternationalLegalEntityFounder

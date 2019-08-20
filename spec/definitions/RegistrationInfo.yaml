@@ -1,8 +1,11 @@
-description: Сведения о предпренимательской деятельности
+description: Сведения о предпринимательской деятельности
 type: object
 discriminator: registrationInfoType
 required:
   - registrationInfoType
 properties:
   registrationInfoType:
-    type: string
+    type: string 
+    enum:
+      - IndividualRegistrationInfo
+      - LegalRegistrationInfo

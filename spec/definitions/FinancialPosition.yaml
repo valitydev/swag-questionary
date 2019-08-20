@@ -7,3 +7,12 @@ properties:
   financialPositionType:
     description: Представлены сведения (документа) о финансовом положении
     type: string
+    enum:
+      - AnnualFinancialStatements
+      - AnnualTaxReturnWithMark
+      - QuarterlyTaxReturnWithMark
+      - AnnualTaxReturnWithoutMark
+      - QuarterlyTaxReturnWithoutMark
+      - AnnualTaxReturnWithoutMarkPaper
+      - StatementOfDuty
+      - LetterOfGuarantee
