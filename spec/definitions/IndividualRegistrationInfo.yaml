@@ -7,7 +7,7 @@ allOf:
       ogrnip:
         description: ОГРНИП
         type: string
-      registrationData:
+      registrationDate:
         description: Дата регистрации
         type: string
       registrationPlace:

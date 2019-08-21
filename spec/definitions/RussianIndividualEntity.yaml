@@ -19,7 +19,7 @@ allOf:
         $ref: '#/definitions/ResidenceApprove'
       registrationInfo:
         $ref: '#/definitions/RegistrationInfo'
-      liceneInfo:
+      licenseInfo:
         $ref: '#/definitions/LicenseInfo'
       individualPersonCategories:
         $ref: '#/definitions/IndividualPersonCategories'
