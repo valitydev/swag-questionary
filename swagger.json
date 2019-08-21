@@ -693,7 +693,7 @@
               "description": "ОГРНИП",
               "type": "string"
             },
-            "registrationData": {
+            "registrationDate": {
               "description": "Дата регистрации",
               "type": "string"
             },
@@ -1265,7 +1265,7 @@
             "registrationInfo": {
               "$ref": "#/definitions/RegistrationInfo"
             },
-            "liceneInfo": {
+            "licenseInfo": {
               "$ref": "#/definitions/LicenseInfo"
             },
             "individualPersonCategories": {

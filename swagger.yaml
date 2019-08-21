@@ -486,7 +486,7 @@ definitions:
           ogrnip:
             description: ОГРНИП
             type: string
-          registrationData:
+          registrationDate:
             description: Дата регистрации
             type: string
           registrationPlace:
@@ -850,7 +850,7 @@ definitions:
             $ref: '#/definitions/ResidenceApprove'
           registrationInfo:
             $ref: '#/definitions/RegistrationInfo'
-          liceneInfo:
+          licenseInfo:
             $ref: '#/definitions/LicenseInfo'
           individualPersonCategories:
             $ref: '#/definitions/IndividualPersonCategories'
