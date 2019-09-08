@@ -2,15 +2,25 @@ description: Сведения о единоличном исполнительн
 type: object
 properties:
   russianPrivateEntity:
-    $ref: '#/definitions/RussianPrivateEntity'
+    $ref: "#/definitions/RussianPrivateEntity"
   inn:
     description: ИНН
     type: string
   identityDocument:
-    $ref: '#/definitions/IdentityDocument'
+    $ref: "#/definitions/IdentityDocument"
   migrationCardInfo:
-    $ref: '#/definitions/MigrationCardInfo'
+    $ref: "#/definitions/MigrationCardInfo"
   residenceApprove:
-    $ref: '#/definitions/ResidenceApprove'
+    $ref: "#/definitions/ResidenceApprove"
   pdlCategory:
     type: boolean
+  authorityConfirmingDocument:
+    $ref: "#/definitions/AuthorityConfirmingDocument"
+  snils:
+    $ref: "#/definitions/Snils"
+  pdlRelationDegree:
+    description: Степень родства по отношению к ПДЛ
+    type: string
+  termOfOffice:
+    description: Срок полномочий
+    type: string

@@ -1,6 +1,6 @@
 description: |
   Сведения о целях установления и предполагаемом характере отношения с НКО,
-  сведения о целях финансово-хозяйственной деятельности индвидидуального предпринимателя,
+  сведения о целях финансово-хозяйственной деятельности индивидуального предпринимателя,
   деловая репутация
 type: object
 properties:
@@ -10,15 +10,8 @@ properties:
     format: int32
     minimum: 1
     default: 1
-  hasAccountant:
-    description: Наличие в штате главного бухгалтера
-    type: boolean
-  accounting:
-    description: Бух.учет ведется самим предпринимателем (в случае отстутсвия в штате главного бухгалтера)
-    type: string
-  accountingOrg:
-    description: Сведения об организации, ведущей бухгалтерский учет (наименование, договор, иной документ)
-    type: string
+  accountantInfo:
+    $ref: "#/definitions/AccountantInfo"
   nkoRelationTarget:
     description: Цели установления деловых отношения с НКО
     type: string
@@ -26,29 +19,26 @@ properties:
     description: Предполагаемый характер деловых отношений с НКО
     type: string
   montOperationCount:
-    $ref: '#/definitions/MonthOperationCount'
+    $ref: "#/definitions/MonthOperationCount"
   monthOperationSum:
-    $ref: '#/definitions/MonthOperationSum'
+    $ref: "#/definitions/MonthOperationSum"
   financialPosition:
     type: array
     items:
-      $ref: '#/definitions/FinancialPosition'
+      $ref: "#/definitions/FinancialPosition"
   businessInfo:
     type: array
     items:
-      $ref: '#/definitions/BusinessInfo'
-  storageFacilities:
-    description: Наличие складских помещений
-    type: boolean
+      $ref: "#/definitions/BusinessInfo"
   mainCounterparties:
-    description: Основные контагенты
+    description: Основные контрагенты
     type: string
   relationIndividualEntity:
-    $ref: '#/definitions/RelationIndividualEntity'
+    $ref: "#/definitions/RelationIndividualEntity"
   benefitThirdParties:
-    description: Действует ли к выгоде третьх лиц
+    description: Действует ли к выгоде третьих лиц
     type: boolean
   businessReputation:
-    $ref: '#/definitions/BusinessReputation'
+    $ref: "#/definitions/BusinessReputation"
   bankAccount:
-    $ref: '#/definitions/BankAccount'
+    $ref: "#/definitions/BankAccount"

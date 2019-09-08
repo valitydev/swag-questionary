@@ -1,0 +1,9 @@
+description: Данные документа, подтверждающего полномочия
+type: object
+properties:
+  type:
+    type: string
+  number:
+    type: string
+  date:
+    type: string

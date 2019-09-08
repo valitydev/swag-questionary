@@ -1,0 +1,12 @@
+type: object
+discriminator: documentType
+required:
+  - documentType
+properties:
+  documentType:
+    type: string
+    enum:
+      - LeaseContract
+      - SubleaseContract
+      - CertificateOfOwnership
+      - OtherPropertyInfoDocumentType

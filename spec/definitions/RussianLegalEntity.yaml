@@ -1,7 +1,7 @@
 description: Анкета юридического лица, резидент РФ
 type: object
 allOf:
-  - $ref: '#/definitions/LegalEntity'
+  - $ref: "#/definitions/LegalEntity"
   - type: object
     properties:
       name:
@@ -17,14 +17,10 @@ allOf:
         description: ИНН
         type: string
       registrationInfo:
-        $ref: '#/definitions/RegistrationInfo'
+        $ref: "#/definitions/RegistrationInfo"
       additionalSpace:
         description: Наличие дополнительных площадей
         type: string
-      propertyInfo:
-        type: array
-        items:
-          $ref: '#/definitions/PropertyInfo'
       okatoCode:
         description: код в соответствии с ОКАТО
         type: string
@@ -34,18 +30,20 @@ allOf:
       postalAddress:
         type: string
       foundersInfo:
-        $ref: '#/definitions/FoundersInfo'
+        $ref: "#/definitions/FoundersInfo"
       licenseInfo:
-        $ref: '#/definitions/LicenseInfo'
+        $ref: "#/definitions/LicenseInfo"
       principalActivity:
-        $ref: '#/definitions/Activity'
+        $ref: "#/definitions/Activity"
       legalOwnerInfo:
-        $ref: '#/definitions/LegalOwnerInfo'
+        $ref: "#/definitions/LegalOwnerInfo"
       beneficialOwner:
         type: array
         items:
-          $ref: '#/definitions/BeneficialOwner'
+          $ref: "#/definitions/BeneficialOwner"
       additionalInfo:
-        $ref: '#/definitions/AdditionalInfo'
+        $ref: "#/definitions/AdditionalInfo"
       residencyInfo:
-        $ref: '#/definitions/ResidencyInfo'
+        $ref: "#/definitions/ResidencyInfo"
+      propertyInfoDocumentType:
+        $ref: "#/definitions/PropertyInfoDocumentType"
