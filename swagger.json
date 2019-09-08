@@ -193,6 +193,39 @@
     }
   },
   "definitions": {
+    "AccountantInfo": {
+      "type": "object",
+      "discriminator": "accountantInfoType",
+      "required": [
+        "accountantInfoType"
+      ],
+      "properties": {
+        "accountantInfoType": {
+          "type": "string",
+          "enum": [
+            "WithChiefAccountant",
+            "WithoutChiefAccountant"
+          ]
+        }
+      }
+    },
+    "AccountingOrganization": {
+      "description": "Бух. учет ведет сторонняя организация",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/WithoutChiefAccountant"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "inn": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
     "Activity": {
       "description": "Деятельность осуществляемая организацией",
       "type": "object",
@@ -208,7 +241,7 @@
       }
     },
     "AdditionalInfo": {
-      "description": "Сведения о целях установления и предполагаемом характере отношения с НКО,\nсведения о целях финансово-хозяйственной деятельности индвидидуального предпринимателя,\nделовая репутация\n",
+      "description": "Сведения о целях установления и предполагаемом характере отношения с НКО,\nсведения о целях финансово-хозяйственной деятельности индивидуального предпринимателя,\nделовая репутация\n",
       "type": "object",
       "properties": {
         "staffCount": {
@@ -218,17 +251,8 @@
           "minimum": 1,
           "default": 1
         },
-        "hasAccountant": {
-          "description": "Наличие в штате главного бухгалтера",
-          "type": "boolean"
-        },
-        "accounting": {
-          "description": "Бух.учет ведется самим предпринимателем (в случае отстутсвия в штате главного бухгалтера)",
-          "type": "string"
-        },
-        "accountingOrg": {
-          "description": "Сведения об организации, ведущей бухгалтерский учет (наименование, договор, иной документ)",
-          "type": "string"
+        "accountantInfo": {
+          "$ref": "#/definitions/AccountantInfo"
         },
         "nkoRelationTarget": {
           "description": "Цели установления деловых отношения с НКО",
@@ -256,19 +280,15 @@
             "$ref": "#/definitions/BusinessInfo"
           }
         },
-        "storageFacilities": {
-          "description": "Наличие складских помещений",
-          "type": "boolean"
-        },
         "mainCounterparties": {
-          "description": "Основные контагенты",
+          "description": "Основные контрагенты",
           "type": "string"
         },
         "relationIndividualEntity": {
           "$ref": "#/definitions/RelationIndividualEntity"
         },
         "benefitThirdParties": {
-          "description": "Действует ли к выгоде третьх лиц",
+          "description": "Действует ли к выгоде третьих лиц",
           "type": "boolean"
         },
         "businessReputation": {
@@ -327,6 +347,21 @@
         }
       ]
     },
+    "AuthorityConfirmingDocument": {
+      "description": "Данные документа, подтверждающего полномочия",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        }
+      }
+    },
     "BankAccount": {
       "type": "object",
       "discriminator": "bankAccountType",
@@ -370,6 +405,16 @@
         },
         "pdlCategory": {
           "type": "boolean"
+        },
+        "snils": {
+          "$ref": "#/definitions/Snils"
+        },
+        "pdlRelationDegree": {
+          "description": "Степень родства по отношению к ПДЛ",
+          "type": "string"
+        },
+        "residencyInfo": {
+          "$ref": "#/definitions/ResidencyInfo"
         }
       }
     },
@@ -410,6 +455,14 @@
       "enum": [
         "ProvideReviews",
         "NoReviews"
+      ]
+    },
+    "CertificateOfOwnership": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/PropertyInfoDocumentType"
+        }
       ]
     },
     "ContactInfo": {
@@ -565,6 +618,15 @@
         }
       ]
     },
+    "HeadAccounting": {
+      "description": "Бух. учет ведет руководитель организации",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/WithoutChiefAccountant"
+        }
+      ]
+    },
     "IdentityDocument": {
       "description": "Сведения о предпринимательской деятельности",
       "type": "object",
@@ -581,6 +643,15 @@
           ]
         }
       }
+    },
+    "IndividualAccountant": {
+      "description": "Бух. учет ведет индивидуальный специалист",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/WithoutChiefAccountant"
+        }
+      ]
     },
     "IndividualEntity": {
       "type": "object",
@@ -714,8 +785,12 @@
         {
           "type": "object",
           "properties": {
-            "taxResident": {
-              "description": "Является ли налоговым резидентом США или иного иностранного государства",
+            "usaTaxResident": {
+              "description": "Является ли налогоплательщиком / налоговым резидентом США",
+              "type": "boolean"
+            },
+            "exceptUsaTaxResident": {
+              "description": "Является ли налогоплательщиком / налоговым иного иностранного государства",
               "type": "boolean"
             }
           }
@@ -739,6 +814,14 @@
               "type": "string"
             }
           }
+        }
+      ]
+    },
+    "LeaseContract": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/PropertyInfoDocumentType"
         }
       ]
     },
@@ -795,6 +878,20 @@
         },
         "pdlCategory": {
           "type": "boolean"
+        },
+        "authorityConfirmingDocument": {
+          "$ref": "#/definitions/AuthorityConfirmingDocument"
+        },
+        "snils": {
+          "$ref": "#/definitions/Snils"
+        },
+        "pdlRelationDegree": {
+          "description": "Степень родства по отношению к ПДЛ",
+          "type": "string"
+        },
+        "termOfOffice": {
+          "description": "Срок полномочий",
+          "type": "string"
         }
       }
     },
@@ -933,6 +1030,22 @@
         "GtOneMillion"
       ]
     },
+    "OtherPropertyInfoDocumentType": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/PropertyInfoDocumentType"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
     "PersonAnthroponym": {
       "description": "ФИО",
       "type": "object",
@@ -967,8 +1080,23 @@
         }
       ]
     },
-    "PropertyInfo": {
-      "type": "string"
+    "PropertyInfoDocumentType": {
+      "type": "object",
+      "discriminator": "documentType",
+      "required": [
+        "documentType"
+      ],
+      "properties": {
+        "documentType": {
+          "type": "string",
+          "enum": [
+            "LeaseContract",
+            "SubleaseContract",
+            "CertificateOfOwnership",
+            "OtherPropertyInfoDocumentType"
+          ]
+        }
+      }
     },
     "QuarterlyTaxReturnWithMark": {
       "type": "object",
@@ -1250,12 +1378,6 @@
             "identityDocument": {
               "$ref": "#/definitions/IdentityDocument"
             },
-            "propertyInfo": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PropertyInfo"
-              }
-            },
             "migrationCardInfo": {
               "$ref": "#/definitions/MigrationCardInfo"
             },
@@ -1279,6 +1401,18 @@
             },
             "residencyInfo": {
               "$ref": "#/definitions/ResidencyInfo"
+            },
+            "snils": {
+              "$ref": "#/definitions/Snils"
+            },
+            "propertyInfoDocumentType": {
+              "$ref": "#/definitions/PropertyInfoDocumentType"
+            },
+            "beneficialOwners": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BeneficialOwner"
+              }
             }
           }
         }
@@ -1317,12 +1451,6 @@
               "description": "Наличие дополнительных площадей",
               "type": "string"
             },
-            "propertyInfo": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PropertyInfo"
-              }
-            },
             "okatoCode": {
               "description": "код в соответствии с ОКАТО",
               "type": "string"
@@ -1357,6 +1485,9 @@
             },
             "residencyInfo": {
               "$ref": "#/definitions/ResidencyInfo"
+            },
+            "propertyInfoDocumentType": {
+              "$ref": "#/definitions/PropertyInfoDocumentType"
             }
           }
         }
@@ -1508,11 +1639,22 @@
         }
       }
     },
+    "Snils": {
+      "type": "string"
+    },
     "StatementOfDuty": {
       "type": "object",
       "allOf": [
         {
           "$ref": "#/definitions/FinancialPosition"
+        }
+      ]
+    },
+    "SubleaseContract": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/PropertyInfoDocumentType"
         }
       ]
     },
@@ -1541,6 +1683,39 @@
       "allOf": [
         {
           "$ref": "#/definitions/BusinessInfo"
+        }
+      ]
+    },
+    "WithChiefAccountant": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/AccountantInfo"
+        }
+      ]
+    },
+    "WithoutChiefAccountant": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/AccountantInfo"
+        },
+        {
+          "type": "object",
+          "discriminator": "withoutChiefAccountantType",
+          "required": [
+            "withoutChiefAccountantType"
+          ],
+          "properties": {
+            "withoutChiefAccountantType": {
+              "type": "string",
+              "enum": [
+                "HeadAccounting",
+                "AccountingOrganization",
+                "IndividualAccountant"
+              ]
+            }
+          }
         }
       ]
     }
