@@ -191,7 +191,7 @@ definitions:
       relationshipWithNko:
         description: Предполагаемый характер деловых отношений с НКО
         type: string
-      montOperationCount:
+      monthOperationCount:
         $ref: '#/definitions/MonthOperationCount'
       monthOperationSum:
         $ref: '#/definitions/MonthOperationSum'
