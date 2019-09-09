@@ -1,0 +1,14 @@
+type: object
+allOf:
+  - $ref: "#/definitions/AccountantInfo"
+  - type: object
+    discriminator: withoutChiefAccountantType
+    required:
+      - withoutChiefAccountantType
+    properties:
+      withoutChiefAccountantType:
+        type: string
+        enum:
+          - HeadAccounting
+          - AccountingOrganization
+          - IndividualAccountant

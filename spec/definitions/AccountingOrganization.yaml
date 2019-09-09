@@ -1,0 +1,8 @@
+description: Бух. учет ведет сторонняя организация
+type: object
+allOf:
+  - $ref: "#/definitions/WithoutChiefAccountant"
+  - type: object
+    properties:
+      inn:
+        type: string

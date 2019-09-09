@@ -1,9 +1,11 @@
 type: object
 allOf:
-  - $ref: '#/definitions/ResidencyInfo'
+  - $ref: "#/definitions/ResidencyInfo"
   - type: object
     properties:
-      taxResident:
-        description: Является ли налоговым резидентом США или иного иностранного государства
+      usaTaxResident:
+        description: Является ли налогоплательщиком / налоговым резидентом США
         type: boolean
-
+      exceptUsaTaxResident:
+        description: Является ли налогоплательщиком / налоговым иного иностранного государства
+        type: boolean

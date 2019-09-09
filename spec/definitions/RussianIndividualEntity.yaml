@@ -1,31 +1,35 @@
 type: object
 allOf:
-  - $ref: '#/definitions/IndividualEntity'
+  - $ref: "#/definitions/IndividualEntity"
   - type: object
     properties:
       russianPrivateEntity:
-        $ref: '#/definitions/RussianPrivateEntity'
+        $ref: "#/definitions/RussianPrivateEntity"
       inn:
         type: string
       identityDocument:
-        $ref: '#/definitions/IdentityDocument'
-      propertyInfo:
+        $ref: "#/definitions/IdentityDocument"
+      migrationCardInfo:
+        $ref: "#/definitions/MigrationCardInfo"
+      residenceApprove:
+        $ref: "#/definitions/ResidenceApprove"
+      registrationInfo:
+        $ref: "#/definitions/RegistrationInfo"
+      licenseInfo:
+        $ref: "#/definitions/LicenseInfo"
+      individualPersonCategories:
+        $ref: "#/definitions/IndividualPersonCategories"
+      principalActivity:
+        $ref: "#/definitions/Activity"
+      additionalInfo:
+        $ref: "#/definitions/AdditionalInfo"
+      residencyInfo:
+        $ref: "#/definitions/ResidencyInfo"
+      snils:
+        $ref: "#/definitions/Snils"
+      propertyInfoDocumentType:
+        $ref: "#/definitions/PropertyInfoDocumentType"
+      beneficialOwners:
         type: array
         items:
-          $ref: '#/definitions/PropertyInfo'
-      migrationCardInfo:
-        $ref: '#/definitions/MigrationCardInfo'
-      residenceApprove:
-        $ref: '#/definitions/ResidenceApprove'
-      registrationInfo:
-        $ref: '#/definitions/RegistrationInfo'
-      licenseInfo:
-        $ref: '#/definitions/LicenseInfo'
-      individualPersonCategories:
-        $ref: '#/definitions/IndividualPersonCategories'
-      principalActivity:
-        $ref: '#/definitions/Activity'
-      additionalInfo:
-        $ref: '#/definitions/AdditionalInfo'
-      residencyInfo:
-        $ref: '#/definitions/ResidencyInfo'
+          $ref: "#/definitions/BeneficialOwner"

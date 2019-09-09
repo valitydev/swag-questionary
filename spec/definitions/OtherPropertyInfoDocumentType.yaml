@@ -1,0 +1,7 @@
+type: object
+allOf:
+  - $ref: "#/definitions/PropertyInfoDocumentType"
+  - type: object
+    properties:
+      name:
+        type: string
