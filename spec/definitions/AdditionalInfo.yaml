@@ -18,8 +18,8 @@ properties:
   relationshipWithNko:
     description: Предполагаемый характер деловых отношений с НКО
     type: string
-  montOperationCount:
-    $ref: "#/definitions/MonthOperationCount"
+  monthOperationCount:
+    $ref: '#/definitions/MonthOperationCount'
   monthOperationSum:
     $ref: "#/definitions/MonthOperationSum"
   financialPosition:
