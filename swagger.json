@@ -492,8 +492,8 @@
         "contractorType": {
           "type": "string",
           "enum": [
-            "IndividualEntity",
-            "LegalEntity"
+            "IndividualEntityContractor",
+            "LegalEntityContractor"
           ]
         }
       }

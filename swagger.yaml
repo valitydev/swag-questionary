@@ -344,8 +344,8 @@ definitions:
       contractorType:
         type: string
         enum:
-          - IndividualEntity
-          - LegalEntity
+          - IndividualEntityContractor
+          - LegalEntityContractor
   ExternalID:
     description: |
       Уникальный в рамках платформы идентификатор сущности для данного участника.
