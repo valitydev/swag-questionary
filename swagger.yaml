@@ -1035,8 +1035,6 @@ definitions:
       - $ref: '#/definitions/BusinessInfo'
   ShopDetails:
     type: object
-    required:
-      - name
     properties:
       name:
         description: Название магазина
@@ -1065,7 +1063,7 @@ definitions:
         description: Тип местоположения
         type: string
         enum:
-          - URL
+          - ShopLocationUrl
   ShopLocationUrl:
     description: Местоположение в Интернете
     type: object

@@ -1560,9 +1560,6 @@
     },
     "ShopDetails": {
       "type": "object",
-      "required": [
-        "name"
-      ],
       "properties": {
         "name": {
           "description": "Название магазина",
@@ -1600,7 +1597,7 @@
           "description": "Тип местоположения",
           "type": "string",
           "enum": [
-            "URL"
+            "ShopLocationUrl"
           ]
         }
       }
