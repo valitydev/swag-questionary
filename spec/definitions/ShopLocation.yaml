@@ -8,4 +8,4 @@ properties:
     description: Тип местоположения
     type: string
     enum:
-      - URL
+      - ShopLocationUrl
