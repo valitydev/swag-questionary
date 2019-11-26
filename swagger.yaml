@@ -150,16 +150,9 @@ definitions:
         type: string
         enum:
           - WithChiefAccountant
-          - WithoutChiefAccountant
-  AccountingOrganization:
-    description: Бух. учет ведет сторонняя организация
-    type: object
-    allOf:
-      - $ref: '#/definitions/WithoutChiefAccountant'
-      - type: object
-        properties:
-          inn:
-            type: string
+          - WithoutChiefHeadAccounting
+          - WithoutChiefAccountingOrganization
+          - WithoutChiefIndividualAccountant
   Activity:
     description: Деятельность осуществляемая организацией
     type: object
@@ -215,6 +208,12 @@ definitions:
         $ref: '#/definitions/BusinessReputation'
       bankAccount:
         $ref: '#/definitions/BankAccount'
+      hasBeneficiary:
+        description: Наличие выгодоприобретателя
+        type: boolean
+      hasLiquidationProcess:
+        description: 'Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве'
+        type: boolean
   AnnualFinancialStatements:
     type: object
     allOf:
@@ -433,11 +432,6 @@ definitions:
     type: object
     allOf:
       - $ref: '#/definitions/Reference'
-  HeadAccounting:
-    description: Бух. учет ведет руководитель организации
-    type: object
-    allOf:
-      - $ref: '#/definitions/WithoutChiefAccountant'
   IdentityDocument:
     description: Сведения о предпринимательской деятельности
     type: object
@@ -450,11 +444,6 @@ definitions:
         type: string
         enum:
           - RussianDomesticPassport
-  IndividualAccountant:
-    description: Бух. учет ведет индивидуальный специалист
-    type: object
-    allOf:
-      - $ref: '#/definitions/WithoutChiefAccountant'
   IndividualEntity:
     type: object
     discriminator: individualEntityType
@@ -483,7 +472,7 @@ definitions:
             description: id владельца анкеты
             type: string
           fio:
-            $ref: '#/definitions/PersonAnthroponym'
+            type: string
   IndividualPersonCategories:
     description: Сведения о принадлежности физического лица к некоторым категориям граждан
     type: object
@@ -516,7 +505,7 @@ definitions:
         description: id владельца анкеты
         type: string
       fio:
-        $ref: '#/definitions/PersonAnthroponym'
+        type: string
   IndividualRegistrationInfo:
     description: Индивидуальная информация
     type: object
@@ -604,6 +593,8 @@ definitions:
         type: string
       termOfOffice:
         description: Срок полномочий
+        type: string
+      headPosition:
         type: string
   LegalRegistrationInfo:
     type: object
@@ -701,19 +692,6 @@ definitions:
         properties:
           name:
             type: string
-  PersonAnthroponym:
-    description: ФИО
-    type: object
-    properties:
-      firstName:
-        description: Имя
-        type: string
-      secondName:
-        description: Фамилия
-        type: string
-      middleName:
-        description: Отчество
-        type: string
   PreciousMetalsAndStonesTrade:
     type: object
     allOf:
@@ -892,9 +870,7 @@ definitions:
       - $ref: '#/definitions/IdentityDocument'
       - type: object
         properties:
-          series:
-            type: string
-          number:
+          seriesNumber:
             type: string
           issuer:
             description: Наименование выдавшего паспорт органа
@@ -913,6 +889,8 @@ definitions:
         properties:
           russianPrivateEntity:
             $ref: '#/definitions/RussianPrivateEntity'
+          name:
+            type: string
           inn:
             type: string
           identityDocument:
@@ -941,6 +919,12 @@ definitions:
             type: array
             items:
               $ref: '#/definitions/BeneficialOwner'
+          hasBeneficialOwners:
+            type: boolean
+          pdlCategory:
+            type: boolean
+          pdlRelationDegree:
+            type: string
   RussianLegalEntity:
     description: 'Анкета юридического лица, резидент РФ'
     type: object
@@ -991,6 +975,8 @@ definitions:
             $ref: '#/definitions/ResidencyInfo'
           propertyInfoDocumentType:
             $ref: '#/definitions/PropertyInfoDocumentType'
+          hasBeneficialOwners:
+            type: boolean
   RussianLegalEntityFounder:
     type: object
     allOf:
@@ -1010,8 +996,9 @@ definitions:
     type: object
     description: Частное лицо
     properties:
-      personAnthroponym:
-        $ref: '#/definitions/PersonAnthroponym'
+      fio:
+        description: ФИО
+        type: string
       birthDate:
         description: Дата рождения
         type: string
@@ -1114,18 +1101,22 @@ definitions:
     type: object
     allOf:
       - $ref: '#/definitions/AccountantInfo'
-  WithoutChiefAccountant:
+  WithoutChiefAccountingOrganization:
+    description: Бух. учет ведет сторонняя организация
     type: object
     allOf:
       - $ref: '#/definitions/AccountantInfo'
       - type: object
-        discriminator: withoutChiefAccountantType
-        required:
-          - withoutChiefAccountantType
         properties:
-          withoutChiefAccountantType:
+          inn:
             type: string
-            enum:
-              - HeadAccounting
-              - AccountingOrganization
-              - IndividualAccountant
+  WithoutChiefHeadAccounting:
+    description: Бух. учет ведет руководитель организации
+    type: object
+    allOf:
+      - $ref: '#/definitions/AccountantInfo'
+  WithoutChiefIndividualAccountant:
+    description: Бух. учет ведет индивидуальный специалист
+    type: object
+    allOf:
+      - $ref: '#/definitions/AccountantInfo'

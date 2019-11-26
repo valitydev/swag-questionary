@@ -204,27 +204,12 @@
           "type": "string",
           "enum": [
             "WithChiefAccountant",
-            "WithoutChiefAccountant"
+            "WithoutChiefHeadAccounting",
+            "WithoutChiefAccountingOrganization",
+            "WithoutChiefIndividualAccountant"
           ]
         }
       }
-    },
-    "AccountingOrganization": {
-      "description": "Бух. учет ведет сторонняя организация",
-      "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/WithoutChiefAccountant"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "inn": {
-              "type": "string"
-            }
-          }
-        }
-      ]
     },
     "Activity": {
       "description": "Деятельность осуществляемая организацией",
@@ -296,6 +281,14 @@
         },
         "bankAccount": {
           "$ref": "#/definitions/BankAccount"
+        },
+        "hasBeneficiary": {
+          "description": "Наличие выгодоприобретателя",
+          "type": "boolean"
+        },
+        "hasLiquidationProcess": {
+          "description": "Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве",
+          "type": "boolean"
         }
       }
     },
@@ -618,15 +611,6 @@
         }
       ]
     },
-    "HeadAccounting": {
-      "description": "Бух. учет ведет руководитель организации",
-      "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/WithoutChiefAccountant"
-        }
-      ]
-    },
     "IdentityDocument": {
       "description": "Сведения о предпринимательской деятельности",
       "type": "object",
@@ -643,15 +627,6 @@
           ]
         }
       }
-    },
-    "IndividualAccountant": {
-      "description": "Бух. учет ведет индивидуальный специалист",
-      "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/WithoutChiefAccountant"
-        }
-      ]
     },
     "IndividualEntity": {
       "type": "object",
@@ -698,7 +673,7 @@
               "type": "string"
             },
             "fio": {
-              "$ref": "#/definitions/PersonAnthroponym"
+              "type": "string"
             }
           }
         }
@@ -746,7 +721,7 @@
           "type": "string"
         },
         "fio": {
-          "$ref": "#/definitions/PersonAnthroponym"
+          "type": "string"
         }
       }
     },
@@ -891,6 +866,9 @@
         },
         "termOfOffice": {
           "description": "Срок полномочий",
+          "type": "string"
+        },
+        "headPosition": {
           "type": "string"
         }
       }
@@ -1045,24 +1023,6 @@
           }
         }
       ]
-    },
-    "PersonAnthroponym": {
-      "description": "ФИО",
-      "type": "object",
-      "properties": {
-        "firstName": {
-          "description": "Имя",
-          "type": "string"
-        },
-        "secondName": {
-          "description": "Фамилия",
-          "type": "string"
-        },
-        "middleName": {
-          "description": "Отчество",
-          "type": "string"
-        }
-      }
     },
     "PreciousMetalsAndStonesTrade": {
       "type": "object",
@@ -1338,10 +1298,7 @@
         {
           "type": "object",
           "properties": {
-            "series": {
-              "type": "string"
-            },
-            "number": {
+            "seriesNumber": {
               "type": "string"
             },
             "issuer": {
@@ -1371,6 +1328,9 @@
           "properties": {
             "russianPrivateEntity": {
               "$ref": "#/definitions/RussianPrivateEntity"
+            },
+            "name": {
+              "type": "string"
             },
             "inn": {
               "type": "string"
@@ -1413,6 +1373,15 @@
               "items": {
                 "$ref": "#/definitions/BeneficialOwner"
               }
+            },
+            "hasBeneficialOwners": {
+              "type": "boolean"
+            },
+            "pdlCategory": {
+              "type": "boolean"
+            },
+            "pdlRelationDegree": {
+              "type": "string"
             }
           }
         }
@@ -1488,6 +1457,9 @@
             },
             "propertyInfoDocumentType": {
               "$ref": "#/definitions/PropertyInfoDocumentType"
+            },
+            "hasBeneficialOwners": {
+              "type": "boolean"
             }
           }
         }
@@ -1522,8 +1494,9 @@
       "type": "object",
       "description": "Частное лицо",
       "properties": {
-        "personAnthroponym": {
-          "$ref": "#/definitions/PersonAnthroponym"
+        "fio": {
+          "description": "ФИО",
+          "type": "string"
         },
         "birthDate": {
           "description": "Дата рождения",
@@ -1691,7 +1664,8 @@
         }
       ]
     },
-    "WithoutChiefAccountant": {
+    "WithoutChiefAccountingOrganization": {
+      "description": "Бух. учет ведет сторонняя организация",
       "type": "object",
       "allOf": [
         {
@@ -1699,20 +1673,29 @@
         },
         {
           "type": "object",
-          "discriminator": "withoutChiefAccountantType",
-          "required": [
-            "withoutChiefAccountantType"
-          ],
           "properties": {
-            "withoutChiefAccountantType": {
-              "type": "string",
-              "enum": [
-                "HeadAccounting",
-                "AccountingOrganization",
-                "IndividualAccountant"
-              ]
+            "inn": {
+              "type": "string"
             }
           }
+        }
+      ]
+    },
+    "WithoutChiefHeadAccounting": {
+      "description": "Бух. учет ведет руководитель организации",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/AccountantInfo"
+        }
+      ]
+    },
+    "WithoutChiefIndividualAccountant": {
+      "description": "Бух. учет ведет индивидуальный специалист",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/AccountantInfo"
         }
       ]
     }
