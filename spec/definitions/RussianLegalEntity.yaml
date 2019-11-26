@@ -47,3 +47,5 @@ allOf:
         $ref: "#/definitions/ResidencyInfo"
       propertyInfoDocumentType:
         $ref: "#/definitions/PropertyInfoDocumentType"
+      hasBeneficialOwners:
+        type: boolean

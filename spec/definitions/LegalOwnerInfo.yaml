@@ -24,3 +24,5 @@ properties:
   termOfOffice:
     description: Срок полномочий
     type: string
+  headPosition:
+    type: string

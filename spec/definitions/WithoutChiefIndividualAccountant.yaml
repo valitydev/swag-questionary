@@ -1,4 +1,4 @@
 description: Бух. учет ведет индивидуальный специалист
 type: object
 allOf:
-  - $ref: "#/definitions/WithoutChiefAccountant"
+  - $ref: "#/definitions/AccountantInfo"

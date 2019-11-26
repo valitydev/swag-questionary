@@ -1,8 +1,9 @@
 type: object
 description: Частное лицо
 properties:
-    personAnthroponym:
-      $ref: '#/definitions/PersonAnthroponym'
+    fio:
+      description: ФИО
+      type: string
     birthDate:
       description: Дата рождения
       type: string

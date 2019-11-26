@@ -3,9 +3,7 @@ allOf:
   - $ref: '#/definitions/IdentityDocument'
   - type: object
     properties:
-      series:
-        type: string
-      number:
+      seriesNumber:
         type: string
       issuer:
         description: Наименование выдавшего паспорт органа

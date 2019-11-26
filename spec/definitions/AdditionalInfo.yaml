@@ -42,3 +42,9 @@ properties:
     $ref: "#/definitions/BusinessReputation"
   bankAccount:
     $ref: "#/definitions/BankAccount"
+  hasBeneficiary:
+    description: Наличие выгодоприобретателя
+    type: boolean
+  hasLiquidationProcess:
+    description: Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве
+    type: boolean

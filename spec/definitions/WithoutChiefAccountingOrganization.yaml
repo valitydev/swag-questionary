@@ -1,7 +1,7 @@
 description: Бух. учет ведет сторонняя организация
 type: object
 allOf:
-  - $ref: "#/definitions/WithoutChiefAccountant"
+  - $ref: "#/definitions/AccountantInfo"
   - type: object
     properties:
       inn:

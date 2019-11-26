@@ -5,6 +5,8 @@ allOf:
     properties:
       russianPrivateEntity:
         $ref: "#/definitions/RussianPrivateEntity"
+      name:
+        type: string
       inn:
         type: string
       identityDocument:
@@ -33,3 +35,9 @@ allOf:
         type: array
         items:
           $ref: "#/definitions/BeneficialOwner"
+      hasBeneficialOwners:
+        type: boolean
+      pdlCategory:
+        type: boolean
+      pdlRelationDegree:
+        type: string
