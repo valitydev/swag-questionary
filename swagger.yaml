@@ -41,6 +41,10 @@ responses:
     description: Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса
     schema:
       $ref: '#/definitions/ExternalIDConflictError'
+  GeneralError:
+    description: Неверные данные
+    schema:
+      $ref: '#/definitions/GeneralError'
 parameters:
   requestID:
     name: X-Request-ID
@@ -88,15 +92,12 @@ paths:
                 enum:
                   - questionaryNotValidException
                   - questionaryVersionConflict
-                  - questionaryNotFound
               message:
                 description: Человекочитаемое описание ошибки
                 type: string
                 example: Invalid questionary
         '401':
           $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/QuestionaryNotFound'
   '/questionary/{questionaryId}':
     get:
       operationId: getQuestionary
@@ -116,25 +117,7 @@ paths:
           schema:
             $ref: '#/definitions/Snapshot'
         '400':
-          description: Ошибочные данные
-          schema:
-            type: object
-            required:
-              - code
-              - message
-            properties:
-              code:
-                description: |
-                  [Код ошибки](#tag/Error-Codes)
-                type: string
-                enum:
-                  - questionaryNotValidException
-                  - questionaryVersionConflict
-                  - questionaryNotFound
-              message:
-                description: Человекочитаемое описание ошибки
-                type: string
-                example: Invalid questionary
+          $ref: '#/responses/GeneralError'
         '401':
           $ref: '#/responses/Unauthorized'
         '404':
