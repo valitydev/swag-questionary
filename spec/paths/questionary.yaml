@@ -30,12 +30,9 @@ post:
             enum:
               - questionaryNotValidException
               - questionaryVersionConflict
-              - questionaryNotFound
           message:
             description: Человекочитаемое описание ошибки
             type: string
             example: Invalid questionary
     '401':
       $ref: '#/responses/Unauthorized'
-    '404':
-      $ref: '#/responses/QuestionaryNotFound'

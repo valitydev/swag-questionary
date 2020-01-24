@@ -46,6 +46,10 @@ responses:
     description: Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса
     schema:
       $ref: '#/definitions/ExternalIDConflictError'
+  GeneralError:
+    description: Неверные данные
+    schema:
+      $ref: '#/definitions/GeneralError'
 
 parameters:
   requestID:
