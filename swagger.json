@@ -158,9 +158,6 @@
               "$ref": "#/definitions/Snapshot"
             }
           },
-          "400": {
-            "$ref": "#/responses/GeneralError"
-          },
           "401": {
             "$ref": "#/responses/Unauthorized"
           },
