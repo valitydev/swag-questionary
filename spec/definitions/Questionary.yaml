@@ -2,6 +2,7 @@ type: object
 required:
   - id
   - ownerId
+  - partyId
   - data
 properties:
   id:
@@ -9,6 +10,9 @@ properties:
     type: string
   ownerId:
     description: id владельца анкеты
+    type: string
+  partyId:
+    description: id мерчанта
     type: string
   data:
     $ref: '#/definitions/QuestionaryData'
