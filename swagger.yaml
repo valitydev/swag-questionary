@@ -707,6 +707,7 @@ definitions:
     required:
       - id
       - ownerId
+      - partyId
       - data
     properties:
       id:
@@ -714,6 +715,9 @@ definitions:
         type: string
       ownerId:
         description: id владельца анкеты
+        type: string
+      partyId:
+        description: id мерчанта
         type: string
       data:
         $ref: '#/definitions/QuestionaryData'

@@ -1055,6 +1055,7 @@
       "required": [
         "id",
         "ownerId",
+        "partyId",
         "data"
       ],
       "properties": {
@@ -1064,6 +1065,10 @@
         },
         "ownerId": {
           "description": "id владельца анкеты",
+          "type": "string"
+        },
+        "partyId": {
+          "description": "id мерчанта",
           "type": "string"
         },
         "data": {
