@@ -467,6 +467,58 @@
         }
       }
     },
+    "CorrespondentAccount": {
+      "description": "Корреспондентский банковский счёт",
+      "type": "object",
+      "required": [
+        "accountHolder",
+        "iban",
+        "number",
+        "bank"
+      ],
+      "properties": {
+        "accountHolder": {
+          "type": "string"
+        },
+        "iban": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "bank": {
+          "$ref": "#/definitions/CorrespondentBankDetails"
+        }
+      }
+    },
+    "CorrespondentBankDetails": {
+      "description": "Детальная информация по корр. банковскому счёту",
+      "type": "object",
+      "required": [
+        "abaRtn",
+        "address",
+        "bic",
+        "name",
+        "country"
+      ],
+      "properties": {
+        "abaRtn": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "bic": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "integer"
+        }
+      }
+    },
     "ExternalID": {
       "description": "Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n",
       "type": "string",
@@ -743,6 +795,110 @@
             "exceptUsaTaxResident": {
               "description": "Является ли налогоплательщиком / налоговым иного иностранного государства",
               "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "InternationalBankAccount": {
+      "description": "Междyнародный банковский счёт",
+      "type": "object",
+      "required": [
+        "accountHolder",
+        "iban",
+        "number",
+        "bank"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BankAccount"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "accountHolder": {
+              "type": "string"
+            },
+            "iban": {
+              "type": "string"
+            },
+            "number": {
+              "type": "string"
+            },
+            "bank": {
+              "$ref": "#/definitions/InternationalBankDetails"
+            },
+            "correspondentAccount": {
+              "$ref": "#/definitions/CorrespondentAccount"
+            }
+          }
+        }
+      ]
+    },
+    "InternationalBankDetails": {
+      "description": "Детальная информация по международному банковскому счёту",
+      "type": "object",
+      "required": [
+        "abaRtn",
+        "address",
+        "bic",
+        "name",
+        "country"
+      ],
+      "properties": {
+        "abaRtn": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "bic": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "integer"
+        }
+      }
+    },
+    "InternationalLegalEntity": {
+      "description": "Юридическое лицо-резидент РФ",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/LegalEntity"
+        },
+        {
+          "type": "object",
+          "required": [
+            "legalName",
+            "actualAddress",
+            "registeredAddress",
+            "registeredNumber",
+            "tradingName"
+          ],
+          "properties": {
+            "legalName": {
+              "description": "Наименование",
+              "type": "string"
+            },
+            "actualAddress": {
+              "description": "Адрес места нахождения",
+              "type": "string"
+            },
+            "registeredAddress": {
+              "description": "Адрес места регистрации",
+              "type": "string"
+            },
+            "registeredNumber": {
+              "description": "Регистрационный номер",
+              "type": "string"
+            },
+            "tradingName": {
+              "description": "Торговое наименование",
+              "type": "string"
             }
           }
         }
