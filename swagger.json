@@ -341,7 +341,8 @@
         "bankAccountType": {
           "type": "string",
           "enum": [
-            "RussianBankAccount"
+            "RussianBankAccount",
+            "InternationalBankAccount"
           ]
         }
       }
@@ -942,7 +943,8 @@
         "legalEntityType": {
           "type": "string",
           "enum": [
-            "RussianLegalEntity"
+            "RussianLegalEntity",
+            "InternationalLegalEntity"
           ]
         }
       }

@@ -239,6 +239,7 @@ definitions:
         type: string
         enum:
           - RussianBankAccount
+          - InternationalBankAccount
   BeneficialOwner:
     description: Бенефициарный владелец
     type: object
@@ -647,6 +648,7 @@ definitions:
         type: string
         enum:
           - RussianLegalEntity
+          - InternationalLegalEntity
   LegalEntityContractor:
     type: object
     allOf:
