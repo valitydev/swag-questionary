@@ -347,12 +347,6 @@ definitions:
   CorrespondentBankDetails:
     description: Детальная информация по корр. банковскому счёту
     type: object
-    required:
-      - abaRtn
-      - address
-      - bic
-      - name
-      - country
     properties:
       abaRtn:
         type: string
@@ -556,11 +550,6 @@ definitions:
   InternationalBankAccount:
     description: Междyнародный банковский счёт
     type: object
-    required:
-      - accountHolder
-      - iban
-      - number
-      - bank
     allOf:
       - $ref: '#/definitions/BankAccount'
       - type: object
@@ -578,12 +567,6 @@ definitions:
   InternationalBankDetails:
     description: Детальная информация по международному банковскому счёту
     type: object
-    required:
-      - abaRtn
-      - address
-      - bic
-      - name
-      - country
     properties:
       abaRtn:
         type: string
@@ -601,12 +584,6 @@ definitions:
     allOf:
       - $ref: '#/definitions/LegalEntity'
       - type: object
-        required:
-          - legalName
-          - actualAddress
-          - registeredAddress
-          - registeredNumber
-          - tradingName
         properties:
           legalName:
             description: Наименование

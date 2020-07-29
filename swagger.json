@@ -495,13 +495,6 @@
     "CorrespondentBankDetails": {
       "description": "Детальная информация по корр. банковскому счёту",
       "type": "object",
-      "required": [
-        "abaRtn",
-        "address",
-        "bic",
-        "name",
-        "country"
-      ],
       "properties": {
         "abaRtn": {
           "type": "string"
@@ -804,12 +797,6 @@
     "InternationalBankAccount": {
       "description": "Междyнародный банковский счёт",
       "type": "object",
-      "required": [
-        "accountHolder",
-        "iban",
-        "number",
-        "bank"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/BankAccount"
@@ -839,13 +826,6 @@
     "InternationalBankDetails": {
       "description": "Детальная информация по международному банковскому счёту",
       "type": "object",
-      "required": [
-        "abaRtn",
-        "address",
-        "bic",
-        "name",
-        "country"
-      ],
       "properties": {
         "abaRtn": {
           "type": "string"
@@ -873,13 +853,6 @@
         },
         {
           "type": "object",
-          "required": [
-            "legalName",
-            "actualAddress",
-            "registeredAddress",
-            "registeredNumber",
-            "tradingName"
-          ],
           "properties": {
             "legalName": {
               "description": "Наименование",
