@@ -1,10 +1,5 @@
 description: Междyнародный банковский счёт
 type: object
-required:
-  - accountHolder
-  - iban
-  - number
-  - bank
 allOf:
   - $ref: '#/definitions/BankAccount'
   - type: object

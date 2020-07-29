@@ -1,11 +1,5 @@
 description: Детальная информация по международному банковскому счёту
 type: object
-required:
-  - abaRtn
-  - address
-  - bic
-  - name
-  - country
 properties:
   abaRtn:
     type: string

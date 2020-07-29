@@ -3,12 +3,6 @@ type: object
 allOf:
   - $ref: '#/definitions/LegalEntity'
   - type: object
-    required:
-      - legalName
-      - actualAddress
-      - registeredAddress
-      - registeredNumber
-      - tradingName
     properties:
       legalName:
         description: Наименование
