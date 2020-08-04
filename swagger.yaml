@@ -330,11 +330,6 @@ definitions:
   CorrespondentAccount:
     description: Корреспондентский банковский счёт
     type: object
-    required:
-      - accountHolder
-      - iban
-      - number
-      - bank
     properties:
       accountHolder:
         type: string
