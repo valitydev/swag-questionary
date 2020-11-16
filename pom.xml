@@ -17,8 +17,6 @@
     <properties>
         <default.package>com.rbkmoney.swag.questionary</default.package>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <swagger-annotations-version>1.5.21</swagger-annotations-version>
-        <jodatime-version>2.7</jodatime-version>
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -26,9 +24,8 @@
         <slf4j-version>1.7.30</slf4j-version>
         <junit-version>4.13.1</junit-version>
         <servlet-api-version>4.0.1</servlet-api-version>
-        <springfox-version>2.7.0</springfox-version>
+        <springfox-version>3.0.0</springfox-version>
         <jackson-version>2.11.3</jackson-version>
-        <jackson-threetenbp-version>2.6.4</jackson-threetenbp-version>
         <spring-version>5.2.9.RELEASE</spring-version>
         <javax.version>1.3.2</javax.version>
         <jaxb.version>2.3.1</jaxb.version>
