@@ -5,17 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.rbkmoney</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0.0</version>
+        <groupId>dev.vality</groupId>
+        <artifactId>library-parent-pom</artifactId>
+        <version>1.0.2</version>
     </parent>
 
     <artifactId>swag-questionary</artifactId>
-    <version>1.4-e741f6e-server</version>
     <packaging>jar</packaging>
 
     <properties>
-        <default.package>com.rbkmoney.swag.questionary</default.package>
+        <default.package>dev.vality.swag.questionary</default.package>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <swagger-annotations-version>1.5.21</swagger-annotations-version>
         <jodatime-version>2.7</jodatime-version>
