@@ -1,23 +1,23 @@
 type: object
 description: Частное лицо
 properties:
-    fio:
-      description: ФИО
-      type: string
-    birthDate:
-      description: Дата рождения
-      type: string
-    birthPlace:
-      description: Место рождения
-      type: string
-    citizenship:
-      description: Гражданство
-      type: string
-    residenceAddress:
-      description: Адрес места жительства
-      type: string
-    actualAddress:
-      description: Фактический адрес
-      type: string
-    contactInfo:
-      $ref: '#/definitions/ContactInfo'
+  fio:
+    description: ФИО
+    type: string
+  birthDate:
+    description: Дата рождения
+    type: string
+  birthPlace:
+    description: Место рождения
+    type: string
+  citizenship:
+    description: Гражданство
+    type: string
+  residenceAddress:
+    description: Адрес места жительства
+    type: string
+  actualAddress:
+    description: Фактический адрес
+    type: string
+  contactInfo:
+    $ref: '#/definitions/ContactInfo'

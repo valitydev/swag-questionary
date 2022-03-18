@@ -5,7 +5,7 @@ required:
   - registrationInfoType
 properties:
   registrationInfoType:
-    type: string 
+    type: string
     enum:
       - IndividualRegistrationInfo
       - LegalRegistrationInfo
